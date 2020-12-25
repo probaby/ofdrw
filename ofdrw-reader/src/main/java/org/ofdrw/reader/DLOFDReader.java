@@ -296,7 +296,10 @@ public class DLOFDReader extends OFDReader {
                     stampAnnotVo.setStampAnnots(signedInfo.getStampAnnots());
                     ST_Loc signedValueStLoc = signature.getSignedValue();
                     String srcPath = signedValueStLoc.toString();
-                    byte[] bytes = FileUtils.readFileToByteArray(new File(getOFDDir().getFile(srcPath).toAbsolutePath().toString()));
+
+                    String relPath = docRoot.parent() + File.separator + signatureBaseLoc.parent() + File.separator
+                            + srcPath;
+                    byte[] bytes = FileUtils.readFileToByteArray(new File(getOFDDir().getFile(relPath).toAbsolutePath().toString()));
                     SESVersionHolder v = VersionParser.parseSES_SignatureVersion(bytes);
                     String type = null;
                     byte[] sealBytes = new byte[0];
